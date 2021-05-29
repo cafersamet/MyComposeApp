@@ -8,10 +8,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,28 +29,34 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    Column(modifier = Modifier
-        .background(color = Color.LightGray)
-        .fillMaxSize(1f)) {
+    Column(
+        modifier = Modifier
+            .background(color = Color.LightGray)
+            .fillMaxSize(1f),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Greeting(name = "Android", Color.Green)
         Greeting(name = "Compose", Color.Red)
-        Row(modifier =
-        Modifier
-            .background(color = Color.Black)
-            .padding(12.dp)
-            .alpha(.34f)
-            .clickable {
-                println("Clicked")
-            }
-            .fillMaxSize(.5f)
+        Spacer(modifier = Modifier.padding(10.dp))
+        Row(
+            modifier =
+            Modifier
+                .background(color = Color.Black)
+                .padding(12.dp)
+                .alpha(.34f)
+                .fillMaxSize(.5f)
         ) {
             Greeting(name = "Left", Color.Yellow)
             Greeting(name = "Right", Color.Magenta)
         }
+        Spacer(modifier = Modifier
+            .width(100.dp)
+            .height(15.dp))
         Box() {
             // Like stack
             Greeting(name = "Left", Color.Green)
-            Greeting(name = "Right", Color.Blue)
+//            Greeting(name = "Right", Color.Blue)
         }
     }
 }
@@ -57,12 +65,18 @@ fun MainScreen() {
 fun Greeting(name: String, color: Color) {
     Text(
         modifier = Modifier
-            .fillMaxWidth(.75f)
-            .background(color = color),
+            //use as first parameter
+            .clickable {
+                println("Clicked $name")
+            }
+//            .fillMaxWidth(.75f)
+            .background(color = color)
+            .padding(8.dp),
         text = "Hello $name!",
         color = Color.White,
         fontSize = 25.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center
     )
 }
 
