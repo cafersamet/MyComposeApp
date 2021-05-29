@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,30 +32,32 @@ fun MainScreen() {
         modifier = Modifier
             .background(color = Color.LightGray)
             .fillMaxSize(1f),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Greeting(name = "Android", Color.Green)
         Greeting(name = "Compose", Color.Red)
         Spacer(modifier = Modifier.padding(10.dp))
+
+
         Row(
-            modifier =
-            Modifier
-                .background(color = Color.Black)
-                .padding(12.dp)
-                .alpha(.34f)
-                .fillMaxSize(.5f)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Greeting(name = "Left", Color.Yellow)
-            Greeting(name = "Right", Color.Magenta)
+            Greeting(name = "1", Color.Blue)
+            Greeting(name = "2", Color.Cyan)
+            Greeting(name = "3", Color.Magenta)
         }
+
+
         Spacer(modifier = Modifier
             .width(100.dp)
             .height(15.dp))
         Box() {
             // Like stack
-            Greeting(name = "Left", Color.Green)
-//            Greeting(name = "Right", Color.Blue)
+            Greeting(name = "Box1", Color(0xFF2196F3))
+//            Greeting(name = "Box2", Color.Blue)
         }
     }
 }
