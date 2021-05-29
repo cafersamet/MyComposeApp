@@ -5,10 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,10 +26,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(){
-    Column() {
-        Greeting(name = "Android")
-        Greeting(name = "Compose")
+fun MainScreen() {
+    Column(modifier = Modifier
+        .background(color = Color.LightGray)
+        .fillMaxSize(1f)) {
+        Greeting(name = "Android", Color.Green)
+        Greeting(name = "Compose", Color.Red)
         Row(modifier =
         Modifier
             .background(color = Color.Black)
@@ -40,23 +39,28 @@ fun MainScreen(){
             .alpha(.34f)
             .clickable {
                 println("Clicked")
-            }){
-            Greeting(name = "Left")
-            Greeting(name = "Right")
+            }
+            .fillMaxSize(.5f)
+        ) {
+            Greeting(name = "Left", Color.Yellow)
+            Greeting(name = "Right", Color.Magenta)
         }
-        Box(){
+        Box() {
             // Like stack
-            Greeting(name = "Left")
-            Greeting(name = "Right")
+            Greeting(name = "Left", Color.Green)
+            Greeting(name = "Right", Color.Blue)
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting(name: String, color: Color) {
     Text(
+        modifier = Modifier
+            .fillMaxWidth(.75f)
+            .background(color = color),
         text = "Hello $name!",
-        color = Color.DarkGray,
+        color = Color.White,
         fontSize = 25.sp,
         fontWeight = FontWeight.Bold
     )
