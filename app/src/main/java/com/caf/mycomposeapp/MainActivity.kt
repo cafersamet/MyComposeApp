@@ -3,9 +3,8 @@ package com.caf.mycomposeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -15,12 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,67 +31,39 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    Surface(color = Color.LightGray) {
+    val myInput = remember { mutableStateOf("") }
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .background(Color(0xFF966868)),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            val input = remember {
-                mutableStateOf("Android Compose")
+            SpecialText(string = "Compose")
+            Spacer(modifier = Modifier.padding(5.dp))
+            SpecialText(string = "Test")
+            Spacer(modifier = Modifier.padding(5.dp))
+            SpecialTextField(myInput.value) {
+                myInput.value = it;
             }
-
-            TextField(value = input.value, onValueChange = {
-                input.value = it
-            })
-            Spacer(modifier = Modifier.padding(10.dp))
-            val myText = remember {
-                mutableStateOf("Cafo")
-            }
-            Text(text = myText.value, fontSize = 26.sp)
-            Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = {
-                println("Clicked")
-                when (myText.value) {
-                    "Cafo" -> {
-                        myText.value = "Cafo 1"
-                    }
-                    "Other" -> {
-                        myText.value = "Cafo"
-                    }
-                    else -> {
-                        myText.value = "Other"
-                    }
-                }
-            }) {
-                Text(text = "Button")
-                Text(text = "Test")
-            }
-            Spacer(modifier = Modifier.padding(10.dp))
-            Image(
-                bitmap = ImageBitmap.imageResource(id = R.drawable.rdho),
-                "Ronaldinho, old football player",
-                modifier = Modifier
-                    .width(300.dp),
-                contentScale = ContentScale.Fit,
-                alignment = Alignment.TopCenter
-            )
-            Spacer(modifier = Modifier.padding(10.dp))
-
-            Image(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.padding(10.dp))
-
-            Image(
-                painter = ColorPainter(Color.Blue),
-                contentDescription = null,
-                modifier = Modifier.size(16.dp, 16.dp)
-            )
         }
     }
+}
+
+@Composable
+fun SpecialText(string: String) {
+    Text(
+        text = string, fontSize = 20.sp, fontStyle = FontStyle.Italic,
+        fontFamily = FontFamily.SansSerif
+    )
+}
+
+@Composable
+fun SpecialTextField(inputString: String, onValueChange: (String) -> Unit) {
+    TextField(value = inputString, onValueChange = onValueChange, modifier = Modifier.padding(4.dp))
 }
 
 @Preview(showBackground = true)
