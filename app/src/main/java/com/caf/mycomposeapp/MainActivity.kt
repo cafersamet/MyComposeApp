@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,10 +42,33 @@ fun MainScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Cafo", fontSize = 26.sp)
+
+            val input = remember {
+                mutableStateOf("Android Compose")
+            }
+
+            TextField(value = input.value, onValueChange = {
+                input.value = it
+            })
+            Spacer(modifier = Modifier.padding(10.dp))
+            val myText = remember {
+                mutableStateOf("Cafo")
+            }
+            Text(text = myText.value, fontSize = 26.sp)
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = {
                 println("Clicked")
+                when (myText.value) {
+                    "Cafo" -> {
+                        myText.value = "Cafo 1"
+                    }
+                    "Other" -> {
+                        myText.value = "Cafo"
+                    }
+                    else -> {
+                        myText.value = "Other"
+                    }
+                }
             }) {
                 Text(text = "Button")
                 Text(text = "Test")
